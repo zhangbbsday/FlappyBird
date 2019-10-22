@@ -5,21 +5,15 @@ using UnityEngine;
 public class Ground : MonoBehaviour
 {
     public float groundSpeed;
-    private RectTransform rectTransform;
-    private const float offsetX = 24f;
-    void Start()
-    {
-        rectTransform = GetComponent<RectTransform>();
-    }
-
+    private const float offsetX = 0.5f;
     void Update()
     {
         if (GameManager.Manager.IsOver)
             return;
 
-        if (rectTransform.localPosition.x - groundSpeed <= -offsetX)
-            rectTransform.localPosition = new Vector2(0, rectTransform.localPosition.y);
+        if (transform.position.x - groundSpeed < -offsetX)
+            transform.position = new Vector2(0, transform.position.y);
         else
-            rectTransform.localPosition = new Vector2(rectTransform.localPosition.x - groundSpeed, rectTransform.localPosition.y);
+            transform.position += Vector3.left * groundSpeed;
     }
 }

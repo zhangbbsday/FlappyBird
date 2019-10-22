@@ -43,10 +43,7 @@ public class Bird : MonoBehaviour
     {
         if (GameManager.Manager.IsStart)
         {
-            if (GameManager.Manager.IsOver)
-                return;
-
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !GameManager.Manager.IsOver)
             {
                 rigidbody2d.rotation = upAngleSet;
                 rigidbody2d.velocity = Vector2.up * upSpeedMax;
@@ -63,9 +60,10 @@ public class Bird : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Tube"))
         {
             GameManager.Manager.GameOver();
+            rigidbody2d.velocity = Vector2.zero;
             animator.speed = 0;
         }
     }

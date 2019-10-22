@@ -15,6 +15,6 @@ public class BackGround : MonoBehaviour
 
     private void GetBackground()
     {
-        image = images[Random.Range(0, 2)];
+        image.sprite = images[Random.Range(0, 2)].sprite;
     }
 }
