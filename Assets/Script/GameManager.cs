@@ -7,7 +7,15 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject startMenu = null;
+    [SerializeField]
+    private GameObject endMenuFirst = null;
+    [SerializeField]
+    private GameObject enbMenuSecond = null;
+    [SerializeField]
+    private GameObject score = null;
+
     private static GameManager manager;
+    private AudioSource audioSource;
     public static GameManager Manager
     {
         get
@@ -23,10 +31,11 @@ public class GameManager : MonoBehaviour
     }
     public bool IsStart { get; private set; } = false;
     public bool IsOver { get; set; } = false;
-
+    public int Score { get; set; } = 0;
     private void Start()
     {
         manager = GetComponent<GameManager>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -43,5 +52,15 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         IsOver = true;
+        score.SetActive(false);
+        StartCoroutine(SetMenuActive(endMenuFirst, 0.5f));
+        StartCoroutine(SetMenuActive(enbMenuSecond, 1.0f));
+    }
+
+    public IEnumerator SetMenuActive(GameObject menu, float time)
+    {
+        yield return new WaitForSeconds(time);
+        audioSource.Play();
+        menu.SetActive(true);
     }
 }

@@ -47,6 +47,7 @@ public class Bird : MonoBehaviour
             {
                 rigidbody2d.rotation = upAngleSet;
                 rigidbody2d.velocity = Vector2.up * upSpeedMax;
+                BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().fly, 1);
             }
             else
             {
@@ -58,13 +59,33 @@ public class Bird : MonoBehaviour
         }
     }
 
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (GameManager.Manager.IsOver)
+            return;
+
+        if (other.CompareTag("Point"))
+        {
+            GameManager.Manager.Score++;
+            BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().point, 1);
+            Destroy(other);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (GameManager.Manager.IsOver)
+            return;
+
         if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Tube"))
         {
             GameManager.Manager.GameOver();
             rigidbody2d.velocity = Vector2.zero;
             animator.speed = 0;
+            gameObject.layer = 8;
+            BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().hit, 1);
+            BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().died, 1);
         }
     }
 }
