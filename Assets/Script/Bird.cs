@@ -20,12 +20,15 @@ public class Bird : MonoBehaviour
     private StartColor BirdColor { get; set; } = StartColor.Blue;
     private Animator animator;
     private Rigidbody2D rigidbody2d;
+    private bool hasStopFloat;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        hasStopFloat = false;
         SetStartColor();
+        StartCoroutine("Float", 0.2f);
     }
 
     private void Update()
@@ -43,6 +46,12 @@ public class Bird : MonoBehaviour
     {
         if (GameManager.Manager.IsStart)
         {
+            if (!hasStopFloat)
+            {
+                hasStopFloat = true;
+                StopCoroutine("Float");
+            }
+
             if (Input.GetMouseButtonDown(0) && !GameManager.Manager.IsOver)
             {
                 rigidbody2d.rotation = upAngleSet;
@@ -86,6 +95,19 @@ public class Bird : MonoBehaviour
             gameObject.layer = 8;
             BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().hit, 1);
             BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().died, 1);
+        }
+    }
+
+    private IEnumerator Float(float speed)
+    {
+        while (true)
+        {
+            rigidbody2d.velocity = Vector2.down * speed;
+            yield return new WaitForSeconds(0.5f);
+            rigidbody2d.velocity = Vector2.up * speed;
+            yield return new WaitForSeconds(1f);
+            rigidbody2d.velocity = Vector2.down * speed;
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }

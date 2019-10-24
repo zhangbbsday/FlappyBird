@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public bool IsStart { get; private set; } = false;
     public bool IsOver { get; set; } = false;
     public int Score { get; set; } = 0;
+    public int BestScore { get => PlayerPrefs.GetInt("BestScore", 0); }
+
     private void Start()
     {
         manager = GetComponent<GameManager>();
@@ -51,8 +53,12 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        int bestScore = PlayerPrefs.GetInt("BestScore", 0);
         IsOver = true;
         score.SetActive(false);
+        if (bestScore < Score)
+            PlayerPrefs.SetInt("BestScore", Score);
+
         StartCoroutine(SetMenuActive(endMenuFirst, 0.5f));
         StartCoroutine(SetMenuActive(enbMenuSecond, 1.0f));
     }
