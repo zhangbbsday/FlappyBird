@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         manager = GetComponent<GameManager>();
         audioSource = GetComponent<AudioSource>();
+        Screen.SetResolution(450, 800, false);
     }
     private void Update()
     {
