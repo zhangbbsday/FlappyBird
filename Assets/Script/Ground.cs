@@ -12,7 +12,7 @@ public class Ground : MonoBehaviour
             return;
 
         if (transform.position.x - groundSpeed < -offsetX)
-            transform.position = new Vector2(0, transform.position.y);
+            transform.position = new Vector2(offsetX, transform.position.y);
         else
             transform.position += Vector3.left * groundSpeed;
     }
