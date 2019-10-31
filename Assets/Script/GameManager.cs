@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject endMenuFirst = null;
     [SerializeField]
-    private GameObject enbMenuSecond = null;
+    private GameObject endMenuSecond = null;
+    [SerializeField]
+    private GameObject endMenuThird = null;
     [SerializeField]
     private GameObject score = null;
 
@@ -32,8 +34,13 @@ public class GameManager : MonoBehaviour
     public bool IsStart { get; private set; } = false;
     public bool IsOver { get; set; } = false;
     public int Score { get; set; } = 0;
-    public int BestScore { get => PlayerPrefs.GetInt("BestScore", 0); }
+    public int BestScore { get; set; } = 0;
+    public List<string[]> ScoreList { get; set; } = new List<string[]>();
 
+    private void Awake()
+    {
+        CsvManager.Instance.CsvCreate(Application.streamingAssetsPath);
+    }
     private void Start()
     {
         manager = GetComponent<GameManager>();
@@ -54,14 +61,20 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        int bestScore = PlayerPrefs.GetInt("BestScore", 0);
+        GetScoreLine();
+        BestScore = int.Parse(ScoreList[0][1]);
         IsOver = true;
         score.SetActive(false);
-        if (bestScore < Score)
-            PlayerPrefs.SetInt("BestScore", Score);
 
         StartCoroutine(SetMenuActive(endMenuFirst, 0.5f));
-        StartCoroutine(SetMenuActive(enbMenuSecond, 1.0f));
+        StartCoroutine(SetMenuActive(endMenuSecond, 1.0f));
+    }
+
+    public void ShowScoreLine()
+    {    
+        endMenuFirst.SetActive(false);
+        endMenuSecond.SetActive(false);
+        endMenuThird.SetActive(true);   
     }
 
     public IEnumerator SetMenuActive(GameObject menu, float time)
@@ -69,5 +82,28 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(time);
         audioSource.Play();
         menu.SetActive(true);
+    }
+
+    private void GetScoreLine()
+    {
+        int score = Score;
+        int temp;
+        string[] strs = new string[10];
+
+        ScoreList = CsvManager.Instance.ReadCsv(Application.streamingAssetsPath);
+        for (int i = 0; i < 10; i++)
+        {
+            if (ScoreList.Count < i + 1)
+                ScoreList.Add(new string[] { (i + 1).ToString(), "0" });
+
+            temp = int.Parse(ScoreList[i][1]);
+            if (score >= temp)
+            {
+                ScoreList[i][1] = score.ToString();
+                score = temp;
+            }
+            strs[i] = ScoreList[i][1];
+        }
+        CsvManager.Instance.WriteCsv(strs, Application.streamingAssetsPath);
     }
 }
