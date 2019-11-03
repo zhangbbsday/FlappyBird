@@ -96,6 +96,9 @@ public class Bird : MonoBehaviour
             BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().hit, 1);
             BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().died, 1);
             dropAngle = 1.5f;
+
+            if (other.gameObject.CompareTag("Ground"))
+                rigidbody2d.rotation = -90f;
         }
     }
 

@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 126214826}
   - component: {fileID: 126214825}
   - component: {fileID: 126214824}
+  - component: {fileID: 126214828}
   m_Layer: 9
   m_Name: Sky
   m_TagString: Sky
@@ -355,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b5abc6067ae5d47a2220e986836b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundSpeed: 0.018
+  groundSpeed: 2.2
 --- !u!61 &126214825
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -440,12 +441,33 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126214823}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0.5, y: 2.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.599, y: 2.5, z: 0}
+  m_LocalScale: {x: 1.059, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!50 &126214828
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126214823}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &185709049
 GameObject:
   m_ObjectHideFlags: 0
@@ -4532,7 +4554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tubeSpeed: 2.2
-  interval: 1
+  interval: 0.9
   tubes:
   - {fileID: 5167430563971407431, guid: fd117f576b58c2342a87b261a8186bb0, type: 3}
   - {fileID: 2478825714173191728, guid: 856fdab2775c6764db94c325ced15b4f, type: 3}
@@ -4673,6 +4695,7 @@ GameObject:
   - component: {fileID: 1993755648}
   - component: {fileID: 1993755647}
   - component: {fileID: 1993755650}
+  - component: {fileID: 1993755651}
   m_Layer: 9
   m_Name: Ground
   m_TagString: Ground
@@ -4764,8 +4787,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993755646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -2.25, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.599, y: -2.25, z: 0}
+  m_LocalScale: {x: 1.059, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -4782,7 +4805,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b5abc6067ae5d47a2220e986836b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundSpeed: 0.018
+  groundSpeed: 2.2
+--- !u!50 &1993755651
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993755646}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &2067438802
 GameObject:
   m_ObjectHideFlags: 0
