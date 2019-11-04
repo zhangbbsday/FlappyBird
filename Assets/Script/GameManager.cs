@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject startMenu = null;
+    //[SerializeField]
+    //private GameObject startMenu = null;
     [SerializeField]
     private GameObject endMenuFirst = null;
     [SerializeField]
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     public int Score { get; set; } = 0;
     public int BestScore { get; set; } = 0;
     public List<string[]> ScoreList { get; set; } = new List<string[]>();
-
     private void Awake()
     {
         CsvManager.Instance.CsvCreate(Application.streamingAssetsPath);
@@ -46,17 +45,17 @@ public class GameManager : MonoBehaviour
         manager = GetComponent<GameManager>();
         audioSource = GetComponent<AudioSource>();
         Screen.SetResolution(450, 800, false);
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 50;
     }
     private void Update()
     {
         if (!IsStart && Input.GetMouseButtonDown(0))
             GameStart();
     }
-
     private void GameStart()
     {
         IsStart = true;
-        startMenu.SetActive(false);
     }
 
     public void GameOver()

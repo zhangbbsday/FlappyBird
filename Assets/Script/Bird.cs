@@ -31,7 +31,7 @@ public class Bird : MonoBehaviour
         StartCoroutine("Float", 0.2f);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Fly();
     }
@@ -84,6 +84,9 @@ public class Bird : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag("Ground"))
+            rigidbody2d.rotation = -90f;
+
         if (GameManager.Manager.IsOver)
             return;
 
@@ -95,10 +98,7 @@ public class Bird : MonoBehaviour
             gameObject.layer = 8;
             BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().hit, 1);
             BirdAudio.AudioControl.PlayOneShot(BirdAudio.AudioControl.GetComponent<BirdAudio>().died, 1);
-            dropAngle = 1.5f;
-
-            if (other.gameObject.CompareTag("Ground"))
-                rigidbody2d.rotation = -90f;
+            dropAngle = 5f;
         }
     }
 
