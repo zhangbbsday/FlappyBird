@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         manager = GetComponent<GameManager>();
         audioSource = GetComponent<AudioSource>();
-        Screen.SetResolution(450, 800, false);
+        //Screen.SetResolution(450, 800, false);
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 50;
     }
